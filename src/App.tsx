@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { useQuery } from "urql";
+
+export interface Pokemon {
+  pokemons?: Poke[] | null;
+}
+export interface Poke {
+  id: string;
+  name: string;
+  __typename: string;
+}
+
+const Query = `
+query Pokemons {
+  pokemons {
+    id
+    name
+  }
+}
+`;
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [result] = useQuery<Pokemon>({
+    query: Query,
+  });
+  const { data, fetching, error } = result;
+  const [pokemons, setPokemons] = useState<Poke[] | null | undefined>(null);
+
+  useEffect(() => {
+    setPokemons(data?.pokemons);
+  }, [data]);
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+
+  if (data && pokemons) {
+    return (
+      <div className='App'>
+        {pokemons.map((poke, i) => (
+          <div key={i}>
+            <p>Number: {poke.id}</p>
+            <p>Name: {poke.name}</p>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return <div>Loading Failed</div>;
 }
 
 export default App;
