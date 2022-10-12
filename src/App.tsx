@@ -1,34 +1,22 @@
-import { useEffect } from "react";
-import gql from "graphql-tag";
 import "./App.css";
-import { useQuery } from "urql";
-
-const Query = gql`
-  query {
-    todos {
-      id
-      title
-      is_public
-      is_completed
-      user_id
-    }
-  }
-`;
+import { useTodo } from "./queries/useTodo";
 
 function App() {
-  const [result] = useQuery({
-    query: Query,
-  });
-
-  const { data, fetching, error } = result;
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  const { fetching, error, todoList } = useTodo();
 
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
 
-  return <div>Loading Failed</div>;
+  return (
+    <div className='app'>
+      {todoList.map((todo, i) => (
+        <div className='todo-item' key={i}>
+          <p>id: {todo.id}</p>
+          <p>title: {todo.title}</p>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export default App;
