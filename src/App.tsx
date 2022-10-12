@@ -14,12 +14,10 @@ interface Poke {
 }
 
 const Query = gql`
-  query getPokemonByDexNumber($pokemon: String!) {
-    getFuzzyPokemon(pokemon: $pokemon) {
-      sprite
-      num
-      species
-      color
+  query Pokemons {
+    pokemons {
+      id
+      name
     }
   }
 `;
@@ -36,7 +34,6 @@ function App() {
 
   useEffect(() => {
     setPokemons(data?.pokemons);
-    console.log(data?.pokemons);
   }, [data]);
 
   if (fetching) return <p>Loading...</p>;
