@@ -1,56 +1,32 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import gql from "graphql-tag";
-import logo from "./logo.svg";
 import "./App.css";
 import { useQuery } from "urql";
 
-interface Pokemon {
-  pokemons?: Poke[] | null;
-}
-interface Poke {
-  id: string;
-  name: string;
-  __typename: string;
-}
-
 const Query = gql`
-  query Pokemons {
-    pokemons {
+  query {
+    todos {
       id
-      name
+      title
+      is_public
+      is_completed
+      user_id
     }
   }
 `;
 
 function App() {
-  const limit = 10;
   const [result] = useQuery({
     query: Query,
-    variables: { limit },
   });
-  const { data, fetching, error } = result;
-  console.log(data);
-  const [pokemons, setPokemons] = useState<Poke[] | null | undefined>(null);
 
+  const { data, fetching, error } = result;
   useEffect(() => {
-    setPokemons(data?.pokemons);
+    console.log(data);
   }, [data]);
 
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
-
-  if (data && pokemons) {
-    return (
-      <div className='App'>
-        {pokemons.map((poke, i) => (
-          <div key={i}>
-            <p>Number: {poke.id}</p>
-            <p>Name: {poke.name}</p>
-          </div>
-        ))}
-      </div>
-    );
-  }
 
   return <div>Loading Failed</div>;
 }

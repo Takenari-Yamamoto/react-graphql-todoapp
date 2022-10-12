@@ -6,7 +6,13 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 const client = createClient({
-  url: "https://trygql.formidable.dev/graphql/basic-pokedex",
+  url: `${process.env.REACT_APP_HASURA_URL}`,
+  fetchOptions: {
+    headers: {
+      "content-type": "application/json",
+      "x-hasura-admin-secret": `${process.env.REACT_APP_HASURA_KEY}`,
+    },
+  },
 });
 
 const root = ReactDOM.createRoot(
