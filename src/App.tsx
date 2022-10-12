@@ -1,35 +1,42 @@
 import React, { useEffect, useState } from "react";
+import gql from "graphql-tag";
 import logo from "./logo.svg";
 import "./App.css";
 import { useQuery } from "urql";
 
-export interface Pokemon {
+interface Pokemon {
   pokemons?: Poke[] | null;
 }
-export interface Poke {
+interface Poke {
   id: string;
   name: string;
   __typename: string;
 }
 
-const Query = `
-query Pokemons {
-  pokemons {
-    id
-    name
+const Query = gql`
+  query getPokemonByDexNumber($pokemon: String!) {
+    getFuzzyPokemon(pokemon: $pokemon) {
+      sprite
+      num
+      species
+      color
+    }
   }
-}
 `;
 
 function App() {
-  const [result] = useQuery<Pokemon>({
+  const limit = 10;
+  const [result] = useQuery({
     query: Query,
+    variables: { limit },
   });
   const { data, fetching, error } = result;
+  console.log(data);
   const [pokemons, setPokemons] = useState<Poke[] | null | undefined>(null);
 
   useEffect(() => {
     setPokemons(data?.pokemons);
+    console.log(data?.pokemons);
   }, [data]);
 
   if (fetching) return <p>Loading...</p>;

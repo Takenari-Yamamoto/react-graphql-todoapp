@@ -6,7 +6,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 const client = createClient({
-  url: "https://trygql.formidable.dev/graphql/basic-pokedex",
+  url: "https://graphqlpokemon.favware.tech/",
 });
 
 const root = ReactDOM.createRoot(
