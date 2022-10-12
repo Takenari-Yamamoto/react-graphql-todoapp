@@ -2,7 +2,7 @@ import gql from "graphql-tag";
 import { useEffect, useState } from "react";
 import { useQuery } from "urql";
 
-type Response = {
+export type Response = {
   todos: Todo[];
 };
 
@@ -15,7 +15,7 @@ type Todo = {
   __typename: string;
 };
 
-export const Query = gql`
+const Query = gql`
   query {
     todos {
       id

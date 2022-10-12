@@ -1,26 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createClient, Provider } from "urql";
+import { Provider } from "urql";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-
-const client = createClient({
-  url: `${process.env.REACT_APP_HASURA_URL}`,
-  fetchOptions: {
-    headers: {
-      "content-type": "application/json",
-      "x-hasura-admin-secret": `${process.env.REACT_APP_HASURA_KEY}`,
-    },
-  },
-});
+import { gqlClient } from "./service/gqlClient";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Provider value={client}>
+    <Provider value={gqlClient}>
       <App />
     </Provider>
   </React.StrictMode>
