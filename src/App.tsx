@@ -1,6 +1,6 @@
-import "./App.css";
-import { useTodo } from "./queries/useTodo";
-import Subscription from "./components/Subscription";
+import './App.css';
+import { useTodo } from './queries/useTodo';
+import Subscription from './components/Subscription';
 
 function App() {
   const { fetching, error, todoList } = useTodo();
@@ -10,15 +10,15 @@ function App() {
 
   return (
     <>
-      <div className='app'>
+      <div className="app">
         {todoList.map((todo, i) => (
-          <div className='todo-item' key={i}>
+          <div className="todo-item" key={i}>
             <p>id: {todo.id}</p>
             <p>title: {todo.title}</p>
           </div>
         ))}
       </div>
-      {/* <Subscription /> */}
+      <Subscription />
     </>
   );
 }

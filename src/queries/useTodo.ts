@@ -1,12 +1,12 @@
-import gql from "graphql-tag";
-import { useEffect, useState } from "react";
-import { useQuery } from "urql";
+import gql from 'graphql-tag';
+import { useEffect, useState } from 'react';
+import { useQuery } from 'urql';
 
-export type Response = {
-  todos: Todo[];
+export type TodoResponse = {
+  todos: TodoEntity[];
 };
 
-type Todo = {
+export type TodoEntity = {
   id: number;
   is_completed: boolean;
   is_public: boolean;
@@ -28,8 +28,8 @@ const Query = gql`
 `;
 
 export const useTodo = () => {
-  const [todoList, setTodoList] = useState<Todo[]>([]);
-  const [result] = useQuery<Response>({
+  const [todoList, setTodoList] = useState<TodoEntity[]>([]);
+  const [result] = useQuery<TodoResponse>({
     query: Query,
   });
   const { data, fetching, error } = result;
