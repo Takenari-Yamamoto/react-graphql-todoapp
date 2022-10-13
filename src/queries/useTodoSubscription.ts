@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import { useEffect } from 'react';
 import { useSubscription } from 'urql';
-import { TodoEntity } from './useTodo';
+import { TodoEntity } from '../features/todo/types/type';
 
 const Query = gql`
   subscription {

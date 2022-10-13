@@ -1,9 +1,10 @@
 import React, { memo, useState } from 'react';
-import { useTodo } from '../queries/useTodo';
+import { useCreateTodo, useGetAllTodos } from '../features/todo/api';
 
 const Todo = (props: { handleSelect: (id: number) => void }) => {
-  const { fetching, error, todoList, handleAdd } = useTodo();
+  const { todoList, fetching, error } = useGetAllTodos();
   const [title, setTitle] = useState('');
+  const { createTodo } = useCreateTodo(title);
 
   if (fetching) return <div>Loading</div>;
   if (error) return <div>Error</div>;
@@ -16,7 +17,7 @@ const Todo = (props: { handleSelect: (id: number) => void }) => {
           setTitle(e.target.value);
         }}
       />
-      <button onClick={() => handleAdd(title)}>追加</button>
+      <button onClick={() => createTodo()}>追加</button>
       {todoList.map((todo, i) => (
         <div
           className="todo-item"

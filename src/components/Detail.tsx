@@ -1,9 +1,9 @@
 import { memo, useEffect, useState } from 'react';
-import { TodoEntity, TodoRepo } from '../queries/useTodo';
+import { useGetTodoDetail } from '../features/todo/api';
+import { TodoEntity } from '../features/todo/types/type';
 
 const Detail = (props: { id: number }) => {
-  const { useShow } = TodoRepo;
-  const { data, fetching, error } = useShow(props.id ?? 10);
+  const { data, fetching, error } = useGetTodoDetail(props.id ?? 10);
   const [detail, setDetail] = useState<TodoEntity>();
 
   useEffect(() => {
