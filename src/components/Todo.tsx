@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { useTodo } from '../queries/useTodo';
 
 const Todo = () => {
-  const { fetching, error, todoList } = useTodo();
+  const { fetching, error, todoList, handleAdd } = useTodo();
 
   if (fetching) return <div>Loading</div>;
   if (error) return <div>Error</div>;
@@ -14,6 +14,7 @@ const Todo = () => {
           <p>title: {todo.title}</p>
         </div>
       ))}
+      <button onClick={() => handleAdd()}>追加</button>
     </div>
   );
 };

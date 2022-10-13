@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 import { useEffect, useState } from 'react';
-import { useQuery } from 'urql';
+import { useMutation, useQuery } from 'urql';
 
 export type TodoResponse = {
   todos: TodoEntity[];
@@ -15,22 +15,32 @@ export type TodoEntity = {
   __typename: string;
 };
 
-const Query = gql`
-  query {
-    todos {
-      id
-      title
-      is_public
-      is_completed
-      user_id
+const query = {
+  index: gql`
+    query {
+      todos {
+        id
+        title
+        is_public
+        is_completed
+        user_id
+      }
     }
-  }
-`;
+  `,
+  create: gql`
+    mutation {
+      insert_todos(objects: [{ title: "My First Todo", user_id: "1" }]) {
+        affected_rows
+      }
+    }
+  `,
+};
 
 export const useTodo = () => {
+  // Index
   const [todoList, setTodoList] = useState<TodoEntity[]>([]);
   const [result] = useQuery<TodoResponse>({
-    query: Query,
+    query: query.index,
   });
   const { data, fetching, error } = result;
 
@@ -40,5 +50,13 @@ export const useTodo = () => {
     }
   }, [data]);
 
-  return { fetching, error, todoList };
+  // Create
+  const [state, createTodo] = useMutation(query.create);
+  const handleAdd = async () => {
+    const res = await createTodo();
+    console.log(111, res);
+    console.log(222, state);
+  };
+
+  return { fetching, error, todoList, handleAdd };
 };

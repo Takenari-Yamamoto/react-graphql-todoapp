@@ -3,7 +3,7 @@ import { createClient as createWSClient } from 'graphql-ws';
 
 // 修正必要
 const wsClient = createWSClient({
-  url: `${process.env.REACT_APP_HASURA_URL}`,
+  url: ``,
   connectionParams: {
     headers: {
       Authorization: `${process.env.REACT_APP_HASURA_KEY}`, //ここで送らないとurqlのsubscriptionができてなかった。
