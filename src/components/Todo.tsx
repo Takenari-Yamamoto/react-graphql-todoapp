@@ -1,7 +1,7 @@
 import React, { memo, useState } from 'react';
 import { useTodo } from '../queries/useTodo';
 
-const Todo = () => {
+const Todo = (props: { handleSelect: (id: number) => void }) => {
   const { fetching, error, todoList, handleAdd } = useTodo();
   const [title, setTitle] = useState('');
 
@@ -18,7 +18,11 @@ const Todo = () => {
       />
       <button onClick={() => handleAdd(title)}>追加</button>
       {todoList.map((todo, i) => (
-        <div className="todo-item" key={i}>
+        <div
+          className="todo-item"
+          onClick={() => props.handleSelect(todo.id)}
+          key={i}
+        >
           <p>id: {todo.id}</p>
           <p>title: {todo.title}</p>
         </div>

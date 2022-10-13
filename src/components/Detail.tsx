@@ -1,9 +1,9 @@
 import { memo, useEffect, useState } from 'react';
 import { TodoEntity, TodoRepo } from '../queries/useTodo';
 
-const Detail = () => {
+const Detail = (props: { id: number }) => {
   const { useShow } = TodoRepo;
-  const { data, fetching, error } = useShow(10);
+  const { data, fetching, error } = useShow(props.id ?? 10);
   const [detail, setDetail] = useState<TodoEntity>();
 
   useEffect(() => {
@@ -14,9 +14,9 @@ const Detail = () => {
 
   if (error) {
     console.error(error);
-    <div>Error</div>;
+    <div className="detail-container">Error</div>;
   }
-  if (fetching) return <div>Loading</div>;
+  if (fetching) return <div className="detail-container">Loading</div>;
 
   return (
     <div className="detail-container">
