@@ -1,10 +1,13 @@
 import gql from 'graphql-tag';
 import { useEffect, useState } from 'react';
-import { __String } from 'typescript';
 import { useMutation, useQuery } from 'urql';
 
 export type TodoResponse = {
   todos: TodoEntity[];
+};
+
+export type TodoDetailResponse = {
+  todos_by_pk: TodoEntity;
 };
 
 export type TodoEntity = {
@@ -24,6 +27,18 @@ const query = {
         title
         is_public
         is_completed
+        user_id
+      }
+    }
+  `,
+  show: gql`
+    query ($id: Int!) {
+      todos_by_pk(id: $id) {
+        created_at
+        id
+        is_completed
+        is_public
+        title
         user_id
       }
     }
@@ -58,7 +73,6 @@ export const useTodo = () => {
   >(query.create);
   const handleAdd = async (title: string) => {
     await createTodo({ title });
-    console.log('Create Res ===>>>', state.data?.insert_todos);
     if (state.error) {
       alert('追加に失敗しました');
       throw new Error('追加に失敗しました');
@@ -68,4 +82,14 @@ export const useTodo = () => {
   };
 
   return { fetching, error, todoList, handleAdd };
+};
+
+export const TodoRepo = {
+  useShow: (id: number) => {
+    const [todoDetail] = useQuery<TodoDetailResponse, { id: number }>({
+      query: query.show,
+      variables: { id },
+    });
+    return todoDetail;
+  },
 };

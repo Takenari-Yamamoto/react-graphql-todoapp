@@ -7,6 +7,7 @@ const Todo = () => {
 
   if (fetching) return <div>Loading</div>;
   if (error) return <div>Error</div>;
+
   return (
     <div className="app">
       <input
