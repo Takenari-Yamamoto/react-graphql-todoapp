@@ -1,4 +1,4 @@
-import { gql, useMutation, useQuery } from 'urql';
+import { gql, useMutation } from 'urql';
 
 const query = gql`
   mutation ($title: String!) {

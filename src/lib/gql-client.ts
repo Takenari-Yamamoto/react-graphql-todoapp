@@ -1,22 +1,23 @@
 import { createClient, defaultExchanges, subscriptionExchange } from 'urql';
 import { createClient as createWSClient } from 'graphql-ws';
+import { API_KEY, API_URL } from '../config/config';
 
 // 修正必要
 const wsClient = createWSClient({
   url: ``,
   connectionParams: {
     headers: {
-      Authorization: `${process.env.REACT_APP_HASURA_KEY}`, //ここで送らないとurqlのsubscriptionができてなかった。
+      Authorization: `${API_KEY}`, //ここで送らないとurqlのsubscriptionができてなかった。
     },
   },
 });
 
 export const gqlClient = createClient({
-  url: `${process.env.REACT_APP_HASURA_URL}`,
+  url: `${API_URL}`,
   fetchOptions: {
     headers: {
       'content-type': 'application/json',
-      'x-hasura-admin-secret': `${process.env.REACT_APP_HASURA_KEY}`,
+      'x-hasura-admin-secret': `${API_KEY}`,
     },
   },
   exchanges: [
