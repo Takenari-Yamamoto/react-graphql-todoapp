@@ -9,7 +9,7 @@ const Todo = () => {
   if (error) return <div>Error</div>;
 
   return (
-    <div className="app">
+    <div className="todo-container">
       <input
         type="text"
         onChange={(e) => {

@@ -19,7 +19,7 @@ const Detail = () => {
   if (fetching) return <div>Loading</div>;
 
   return (
-    <div>
+    <div className="detail-container">
       <p>
         {detail?.id}: {detail?.title}
       </p>

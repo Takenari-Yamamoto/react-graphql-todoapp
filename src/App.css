@@ -1,5 +1,10 @@
-.app {
+.top-container {
   padding: 40px;
+  display: flex;
+}
+
+.todo-container {
+  width: 100%;
 }
 
 .todo-item {
@@ -7,4 +12,8 @@
   border-radius: 4px;
   margin: 12px;
   padding: 24px;
+}
+
+.detail-container {
+  width: 100%;
 }

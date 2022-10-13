@@ -5,11 +5,11 @@ import Todo from './components/Todo';
 
 function App() {
   return (
-    <>
+    <div className="top-container">
       <Todo />
       <Detail />
       {/* <Subscription /> */}
-    </>
+    </div>
   );
 }
 
