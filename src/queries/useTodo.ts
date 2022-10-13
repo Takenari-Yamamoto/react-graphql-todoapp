@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
 import { useEffect, useState } from 'react';
+import { __String } from 'typescript';
 import { useMutation, useQuery } from 'urql';
 
 export type TodoResponse = {
@@ -18,7 +19,7 @@ export type TodoEntity = {
 const query = {
   index: gql`
     query {
-      todos {
+      todos(order_by: { created_at: desc }) {
         id
         title
         is_public
@@ -28,8 +29,8 @@ const query = {
     }
   `,
   create: gql`
-    mutation {
-      insert_todos(objects: [{ title: "My First Todo", user_id: "1" }]) {
+    mutation ($title: String!) {
+      insert_todos(objects: [{ title: $title, user_id: "1" }]) {
         affected_rows
       }
     }
@@ -51,11 +52,19 @@ export const useTodo = () => {
   }, [data]);
 
   // Create
-  const [state, createTodo] = useMutation(query.create);
-  const handleAdd = async () => {
-    const res = await createTodo();
-    console.log(111, res);
-    console.log(222, state);
+  const [state, createTodo] = useMutation<
+    { insert_todos: any },
+    { title: string }
+  >(query.create);
+  const handleAdd = async (title: string) => {
+    await createTodo({ title });
+    console.log('Create Res ===>>>', state.data?.insert_todos);
+    if (state.error) {
+      alert('追加に失敗しました');
+      throw new Error('追加に失敗しました');
+    }
+    // FIX: Subscription　実装したら消す
+    window.location.reload();
   };
 
   return { fetching, error, todoList, handleAdd };
