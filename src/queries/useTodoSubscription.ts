@@ -14,6 +14,8 @@ const Query = gql`
     }
   }
 `;
+
+// 参考: https://snyk.io/advisor/npm-package/urql/functions/urql.useSubscription
 const handleSubscription = (todos: TodoEntity[] = [], todo: TodoEntity) => [
   ...todos,
   todo,
