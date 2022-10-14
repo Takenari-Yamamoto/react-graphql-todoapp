@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import { memo, useState } from "react";
 import { useCreateTodo, useGetAllTodos } from "../api";
 
 const Todo = (props: { handleSelect: (id: number) => void }) => {
@@ -23,6 +23,7 @@ const Todo = (props: { handleSelect: (id: number) => void }) => {
           className='todo-item'
           onClick={() => props.handleSelect(todo.id)}
           key={i}>
+          <p>user:{todo.user.name}</p>
           <p>id: {todo.id}</p>
           <p>title: {todo.title}</p>
         </div>

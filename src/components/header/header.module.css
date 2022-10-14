@@ -5,3 +5,7 @@
   padding: 16px;
   font-weight: bold;
 }
+
+.item {
+  cursor: pointer;
+}

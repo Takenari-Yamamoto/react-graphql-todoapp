@@ -1,8 +1,8 @@
-import { gql, useMutation } from 'urql';
+import { gql, useMutation } from "urql";
 
 const query = gql`
   mutation ($title: String!) {
-    insert_todos(objects: [{ title: $title, user_id: "1" }]) {
+    insert_todos(objects: [{ title: $title, user_id: "2" }]) {
       affected_rows
     }
   }
@@ -16,14 +16,14 @@ export const useCreateTodo = (title: string) => {
 
   const createTodo = async () => {
     if (!title) {
-      alert('入力してね');
+      alert("入力してね");
       return;
     }
 
     await create({ title });
     if (state.error) {
-      alert('追加に失敗しました');
-      throw new Error('追加に失敗しました');
+      alert("追加に失敗しました");
+      throw new Error("追加に失敗しました");
     }
     // FIX: Subscription　実装したら消す
     window.location.reload();

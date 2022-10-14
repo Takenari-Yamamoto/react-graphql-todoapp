@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { gql, useQuery } from 'urql';
-import { TodoEntity, TodoResponse } from '../types/type';
+import { useEffect, useState } from "react";
+import { gql, useQuery } from "urql";
+import { TodoEntity, TodoResponse, UserEntity } from "../types/type";
 
 const query = gql`
   query {
@@ -9,14 +9,22 @@ const query = gql`
       title
       is_public
       is_completed
-      user_id
+      user {
+        name
+      }
     }
   }
 `;
 
+type User = {
+  user: {
+    name: String;
+  };
+};
+
 export const useGetAllTodos = () => {
   const [todoList, setTodoList] = useState<TodoEntity[]>([]);
-  const [result] = useQuery<TodoResponse>({
+  const [result] = useQuery<TodoResponse<User>>({
     query: query,
   });
 

@@ -16,8 +16,10 @@ function App() {
   return (
     <>
       <Header handleSelect={handleSetPage} />
-      {page === "Top" && <TodoPage />}
-      {page === "User" && <UserPage />}
+      <div className='app-container'>
+        {page === "Top" && <TodoPage />}
+        {page === "User" && <UserPage />}
+      </div>
     </>
   );
 }
