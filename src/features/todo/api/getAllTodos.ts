@@ -32,6 +32,7 @@ export const useGetAllTodos = () => {
   useEffect(() => {
     if (data?.todos) {
       setTodoList(data?.todos);
+      console.log(data?.todos);
     }
   }, [data]);
 
