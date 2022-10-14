@@ -1,6 +1,6 @@
-import { memo, useEffect, useState } from 'react';
-import { useGetTodoDetail } from '../features/todo/api';
-import { TodoEntity } from '../features/todo/types/type';
+import { memo, useEffect, useState } from "react";
+import { useGetTodoDetail } from "../api";
+import { TodoEntity } from "../types/type";
 
 const Detail = (props: { id: number }) => {
   const { data, fetching, error } = useGetTodoDetail(props.id ?? 10);
@@ -14,12 +14,12 @@ const Detail = (props: { id: number }) => {
 
   if (error) {
     console.error(error);
-    <div className="detail-container">Error</div>;
+    <div className='detail-container'>Error</div>;
   }
-  if (fetching) return <div className="detail-container">Loading</div>;
+  if (fetching) return <div className='detail-container'>Loading</div>;
 
   return (
-    <div className="detail-container">
+    <div className='detail-container'>
       <p>
         {detail?.id}: {detail?.title}
       </p>

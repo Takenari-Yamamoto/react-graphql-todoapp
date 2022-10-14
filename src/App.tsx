@@ -1,19 +1,24 @@
-import { useCallback, useState } from 'react';
-import './App.css';
-import Detail from './components/Detail';
-import Todo from './components/Todo';
-// import Subscription from './components/Subscription';
+import { useCallback, useState } from "react";
+import "./App.css";
+import Header, { PageType } from "./components/header/Header";
+import TodoPage from "./features/todo/page/TodoPage";
+import UserPage from "./features/users/page/UserPage";
 
 function App() {
-  const [selectedTodo, setSelected] = useState<number>(0);
-  const handleSelect = useCallback((id: number) => setSelected(id), []);
+  const [page, setPage] = useState<PageType>("Top");
+  const handleSetPage = useCallback(
+    (page: PageType) => {
+      setPage(page);
+    },
+    [page]
+  );
 
   return (
-    <div className="top-container">
-      <Todo handleSelect={handleSelect} />
-      <Detail id={selectedTodo} />
-      {/* <Subscription /> */}
-    </div>
+    <>
+      <Header handleSelect={handleSetPage} />
+      {page === "Top" && <TodoPage />}
+      {page === "User" && <UserPage />}
+    </>
   );
 }
 
