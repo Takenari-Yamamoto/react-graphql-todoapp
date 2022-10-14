@@ -1,4 +1,5 @@
 import { memo, useState } from "react";
+import { formatStatus } from "../../../utils/util";
 import { useCreateTodo, useGetAllTodos } from "../api";
 
 const Todo = (props: { handleSelect: (id: number) => void }) => {
@@ -23,9 +24,10 @@ const Todo = (props: { handleSelect: (id: number) => void }) => {
           className='todo-item'
           onClick={() => props.handleSelect(todo.id)}
           key={i}>
-          <p>user:{todo.user.name}</p>
-          <p>id: {todo.id}</p>
-          <p>title: {todo.title}</p>
+          <p>User Name:{todo.user.name}</p>
+          <p>Id: {todo.id}</p>
+          <p>Title: {todo.title}</p>
+          <p>Status: {formatStatus(todo.status)}</p>
         </div>
       ))}
     </div>

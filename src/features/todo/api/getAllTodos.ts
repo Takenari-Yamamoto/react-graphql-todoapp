@@ -7,8 +7,7 @@ const query = gql`
     todos(order_by: { created_at: desc }) {
       id
       title
-      is_public
-      is_completed
+      status
       user {
         name
       }

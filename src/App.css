@@ -17,6 +17,10 @@
   padding: 24px;
 }
 
+.todo-item > p {
+  padding: 2px;
+}
+
 .detail-container {
   width: 100%;
 }

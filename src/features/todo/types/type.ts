@@ -1,3 +1,5 @@
+import { Status } from "../../../config/enum";
+
 export type TodoResponse<T = {}> = {
   todos: (TodoEntity & T)[];
 };
@@ -8,8 +10,7 @@ export type TodoDetailResponse = {
 
 export type TodoEntity = {
   id: number;
-  is_completed: boolean;
-  is_public: boolean;
+  status: Status;
   title: string;
   user_id: string;
   user: {
