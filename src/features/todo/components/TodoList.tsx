@@ -1,6 +1,7 @@
 import { memo, useState } from "react";
 import { formatStatus } from "../../../utils/util";
 import { useCreateTodo, useGetAllTodos } from "../api";
+import StatusSelect from "./StatusSelect";
 
 const Todo = (props: { handleSelect: (id: number) => void }) => {
   const { todoList, fetching, error } = useGetAllTodos();
@@ -27,7 +28,7 @@ const Todo = (props: { handleSelect: (id: number) => void }) => {
           <p>User Name:{todo.user.name}</p>
           <p>Id: {todo.id}</p>
           <p>Title: {todo.title}</p>
-          <p>Status: {formatStatus(todo.status)}</p>
+          Status: <StatusSelect selected={formatStatus(todo.status)} />
         </div>
       ))}
     </div>

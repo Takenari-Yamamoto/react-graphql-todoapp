@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { gql, Query, useQuery } from "urql";
-import { UsersResponse } from "../../todo/types/type";
+import { UsersResponse } from "../types/types";
 
 const query = gql`
   query {

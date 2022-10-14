@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { gql, useQuery } from "urql";
-import { TodoEntity, TodoResponse, UserEntity } from "../types/type";
+import { TodoEntity, TodoResponse } from "../types/type";
 
 const query = gql`
   query {
