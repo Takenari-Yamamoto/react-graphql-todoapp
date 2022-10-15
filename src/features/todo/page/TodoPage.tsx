@@ -1,4 +1,5 @@
 import { memo, useCallback, useState } from 'react';
+import { STATUS } from '../../../config/enum';
 import TodoDetail from '../components/TodoDetail';
 import TodoForm from '../components/TodoForm';
 import TodoList from '../components/TodoList';
@@ -11,8 +12,11 @@ const TodoPage = () => {
     <>
       <TodoForm />
       <div className="top-container">
-        <TodoList handleSelect={handleSelect} />
-        <TodoDetail id={selectedTodo} />
+        <TodoList handleSelect={handleSelect} type={0} />
+        <TodoList handleSelect={handleSelect} type={1} />
+        <TodoList handleSelect={handleSelect} type={2} />
+        <TodoList handleSelect={handleSelect} type={3} />
+        {/* <TodoDetail id={selectedTodo} /> */}
       </div>
     </>
   );

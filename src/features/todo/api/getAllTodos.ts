@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { gql, useQuery } from "urql";
-import { TodoEntity, TodoResponse } from "../types/type";
+import { useEffect, useState } from 'react';
+import { gql, useQuery } from 'urql';
+import { TodoEntity, TodoResponse } from '../types/type';
 
 const query = gql`
-  query {
-    todos(order_by: { created_at: desc }) {
+  query ($status: Int) {
+    todos(where: { status: { _eq: $status } }) {
       id
       title
       status
@@ -21,13 +21,18 @@ type User = {
   };
 };
 
-export const useGetAllTodos = () => {
+export const useGetAllTodos = (status: number) => {
   const [todoList, setTodoList] = useState<TodoEntity[]>([]);
   const [result] = useQuery<TodoResponse<User>>({
     query: query,
+    variables: { status },
   });
 
   const { data, fetching, error } = result;
+
+  if (error) {
+    console.error(error);
+  }
 
   useEffect(() => {
     if (data?.todos) {

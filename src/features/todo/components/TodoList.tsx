@@ -1,10 +1,16 @@
 import { memo } from 'react';
+import { Status } from '../../../config/enum';
 import { useGetAllTodos } from '../api';
 import { useEditTodo } from '../api/editTodo';
 import StatusSelect from './StatusSelect';
 
-const Todo = (props: { handleSelect: (id: number) => void }) => {
-  const { todoList, fetching, error } = useGetAllTodos();
+type Props = {
+  type: 0 | 1 | 2 | 3;
+  handleSelect: (id: number) => void;
+};
+
+const TodoList = (props: Props) => {
+  const { todoList, fetching, error } = useGetAllTodos(props.type);
   const { editTodo } = useEditTodo();
   const handleSelect = async (id: number, status: number) => {
     if (isNaN(status)) {
@@ -40,4 +46,4 @@ const Todo = (props: { handleSelect: (id: number) => void }) => {
   );
 };
 
-export default memo(Todo);
+export default memo(TodoList);
