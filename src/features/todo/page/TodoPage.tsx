@@ -1,11 +1,10 @@
 import { memo, useCallback, useState } from 'react';
-import { STATUS } from '../../../config/enum';
-import TodoDetail from '../components/TodoDetail';
+import TodoDetail from '../components/todo-detail/TodoDetail';
 import TodoForm from '../components/TodoForm';
 import TodoList from '../components/TodoList';
 
 const TodoPage = () => {
-  const [selectedTodo, setSelected] = useState<number>(0);
+  const [selectedTodo, setSelected] = useState<number | null>(null);
   const handleSelect = useCallback((id: number) => setSelected(id), []);
 
   return (
@@ -16,7 +15,9 @@ const TodoPage = () => {
         <TodoList handleSelect={handleSelect} type={1} />
         <TodoList handleSelect={handleSelect} type={2} />
         <TodoList handleSelect={handleSelect} type={3} />
-        {/* <TodoDetail id={selectedTodo} /> */}
+        {selectedTodo && (
+          <TodoDetail id={selectedTodo} handleClose={() => setSelected(null)} />
+        )}
       </div>
     </>
   );
