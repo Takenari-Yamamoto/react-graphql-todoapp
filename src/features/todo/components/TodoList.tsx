@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Status } from '../../../config/enum';
+import { formatStatus } from '../../../utils/util';
 import { useGetAllTodos } from '../api';
 import { useEditTodo } from '../api/editTodo';
 import StatusSelect from './StatusSelect';
@@ -25,6 +25,7 @@ const TodoList = (props: Props) => {
 
   return (
     <div className="todo-container">
+      <h1 className="title">{formatStatus(props.type)}</h1>
       {todoList.map((todo, i) => (
         <div
           className="todo-item"
