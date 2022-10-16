@@ -12,6 +12,7 @@ const query = gql`
 `;
 
 export const useGetAllUsers = () => {
+  // hoge
   const [result] = useQuery<UsersResponse>({
     query: query,
   });
