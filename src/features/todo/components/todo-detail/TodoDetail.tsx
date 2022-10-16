@@ -1,4 +1,5 @@
 import { memo, useEffect, useState } from 'react';
+import { useScrollLock } from '../../../../hooks/useScrollLock';
 import { useGetTodoDetail } from '../../api';
 import { TodoEntity } from '../../types/type';
 import style from './todoDetail.module.css';
@@ -9,6 +10,7 @@ type Props = {
 };
 
 const TodoDetail = (props: Props) => {
+  useScrollLock();
   // FIX: 取得の処理は親に書きたい
   const { data, fetching, error } = useGetTodoDetail(props.id ?? 10);
   const [detail, setDetail] = useState<TodoEntity>();
