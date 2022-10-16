@@ -1,7 +1,11 @@
 import { memo, useState } from 'react';
 import style from '../page/authPage.module.css';
 
-const AuthPage = () => {
+type Props = {
+  handleChange: () => void;
+};
+
+const AuthPage = ({ handleChange }: Props) => {
   const [formType, setType] = useState<'login' | 'register'>('login');
   const handleSetType = () => {
     if (formType === 'login') {
@@ -22,7 +26,9 @@ const AuthPage = () => {
           パスワード
           <input type="text" name="password" />
         </label>
-        <button>{formType === 'login' ? 'ログイン' : '会員登録'}</button>
+        <button onClick={() => handleChange()}>
+          {formType === 'login' ? 'ログイン' : '会員登録'}
+        </button>
         <p className={style.text} onClick={() => handleSetType()}>
           {formType === 'login' ? 'アカウントないよ！' : 'アカウントあるよ！'}
         </p>

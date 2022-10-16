@@ -24,7 +24,7 @@ function App() {
           {page === 'User' && <UserPage />}
         </div>
       ) : (
-        <AuthPage />
+        <AuthPage handleChange={() => setLogin(true)} />
       )}
     </>
   );
