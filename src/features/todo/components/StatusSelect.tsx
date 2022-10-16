@@ -1,6 +1,6 @@
-import { memo } from "react";
-import { Status } from "../../../config/enum";
-import { formatStatus } from "../../../utils/util";
+import { memo } from 'react';
+import { Status } from '../../../config/enum';
+import { formatStatus } from '../../../utils/util';
 
 type Props = {
   selected: Status;
@@ -13,8 +13,10 @@ const StatusSelect = (props: Props) => {
 
   return (
     <select
-      name='status-select'
-      onChange={(e) => onSelect(id, Number(e.target.value))}>
+      name="status-select"
+      onClick={(e) => e.stopPropagation()}
+      onChange={(e) => onSelect(id, Number(e.target.value))}
+    >
       <option defaultValue={selected}>{formatStatus(selected)}</option>
       <option value={0}>未着手</option>
       <option value={1}>処理中</option>

@@ -37,7 +37,6 @@ export const useGetAllTodos = (status: number) => {
   useEffect(() => {
     if (data?.todos) {
       setTodoList(data?.todos);
-      console.log(data?.todos);
     }
   }, [data]);
 
