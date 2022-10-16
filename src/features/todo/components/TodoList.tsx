@@ -10,6 +10,7 @@ type Props = {
 };
 
 const TodoList = (props: Props) => {
+  // FIX: 取得の処理は親に書きたい
   const { todoList, fetching, error } = useGetAllTodos(props.type);
   const { editTodo } = useEditTodo();
   const handleSelect = async (id: number, status: number) => {

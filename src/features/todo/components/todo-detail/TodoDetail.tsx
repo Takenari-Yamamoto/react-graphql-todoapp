@@ -9,6 +9,7 @@ type Props = {
 };
 
 const TodoDetail = (props: Props) => {
+  // FIX: 取得の処理は親に書きたい
   const { data, fetching, error } = useGetTodoDetail(props.id ?? 10);
   const [detail, setDetail] = useState<TodoEntity>();
 
