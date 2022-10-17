@@ -4,6 +4,7 @@ import { useGetAllTodos } from '../api';
 import { useDeleteTodo } from '../api/deleteTodo';
 import { useEditTodo } from '../api/editTodo';
 import StatusSelect from './StatusSelect';
+import TodoCard from './todo-card/TodoCard';
 
 type Props = {
   type: 0 | 1 | 2 | 3;
@@ -15,7 +16,7 @@ const TodoList = (props: Props) => {
   const { todoList, fetching, error } = useGetAllTodos(props.type);
   const { editTodo } = useEditTodo();
   const { removeTodo } = useDeleteTodo();
-  const handleSelect = async (id: number, status: number) => {
+  const onEdit = async (id: number, status: number) => {
     if (isNaN(status)) {
       alert('ステータスを設定してください');
       return;
@@ -30,32 +31,13 @@ const TodoList = (props: Props) => {
     <div className="todo-container">
       <h1 className="title">{formatStatus(props.type)}</h1>
       {todoList.map((todo, i) => (
-        <div
-          className="todo-item"
-          onClick={() => props.handleSelect(todo.id)}
+        <TodoCard
+          handleSelect={props.handleSelect}
+          editTodo={onEdit}
+          todo={todo}
+          removeTodo={removeTodo}
           key={i}
-        >
-          <img
-            onClick={(e) => {
-              e.stopPropagation();
-              if (window.confirm('本当に削除しますか')) {
-                removeTodo(todo.id);
-              }
-            }}
-            className="delete-icon"
-            src="https://free-icons.net/wp-content/uploads/2021/03/symbol079.png"
-            alt="delete"
-          />
-          <p>User Name:{todo.user.name}</p>
-          <p>Id: {todo.id}</p>
-          <p>Title: {todo.title}</p>
-          Status:
-          <StatusSelect
-            onSelect={handleSelect}
-            id={todo.id}
-            selected={todo.status}
-          />
-        </div>
+        />
       ))}
     </div>
   );
