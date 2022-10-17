@@ -31,8 +31,6 @@ export const useCreateTodo = (title: string) => {
       alert('追加に失敗しました');
       throw new Error('追加に失敗しました');
     }
-    // FIX: Subscription　実装したら消す
-    window.location.reload();
   };
 
   return {

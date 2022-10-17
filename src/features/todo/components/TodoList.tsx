@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { formatStatus } from '../../../utils/util';
 import { useGetAllTodos } from '../api';
+import { useDeleteTodo } from '../api/deleteTodo';
 import { useEditTodo } from '../api/editTodo';
 import StatusSelect from './StatusSelect';
 
@@ -13,6 +14,7 @@ const TodoList = (props: Props) => {
   // FIX: 取得の処理は親に書きたい
   const { todoList, fetching, error } = useGetAllTodos(props.type);
   const { editTodo } = useEditTodo();
+  const { removeTodo } = useDeleteTodo();
   const handleSelect = async (id: number, status: number) => {
     if (isNaN(status)) {
       alert('ステータスを設定してください');
@@ -33,6 +35,17 @@ const TodoList = (props: Props) => {
           onClick={() => props.handleSelect(todo.id)}
           key={i}
         >
+          <img
+            onClick={(e) => {
+              e.stopPropagation();
+              if (window.confirm('本当に削除しますか')) {
+                removeTodo(todo.id);
+              }
+            }}
+            className="delete-icon"
+            src="https://free-icons.net/wp-content/uploads/2021/03/symbol079.png"
+            alt="delete"
+          />
           <p>User Name:{todo.user.name}</p>
           <p>Id: {todo.id}</p>
           <p>Title: {todo.title}</p>
