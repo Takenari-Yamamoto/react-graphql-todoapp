@@ -3,7 +3,6 @@ import { formatStatus } from '../../../utils/util';
 import { useGetAllTodos } from '../api';
 import { useDeleteTodo } from '../api/deleteTodo';
 import { useEditTodo } from '../api/editTodo';
-import StatusSelect from './StatusSelect';
 import TodoCard from './todo-card/TodoCard';
 
 type Props = {

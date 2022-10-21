@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Provider } from 'urql';
+import { DndProvider } from 'react-dnd';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -16,16 +18,18 @@ const root = ReactDOM.createRoot(
 root.render(
   // FIX: Provider 共通化
   <React.StrictMode>
-    <Auth0Provider
-      domain={AUTH_ZERO_DOMAIN}
-      clientId={AUTH_ZERO_CLIENT_ID}
-      redirectUri={window.location.origin}
-      onRedirectCallback={onRedirectCallback}
-    >
-      <Provider value={gqlClient}>
-        <App />
-      </Provider>
-    </Auth0Provider>
+    <DndProvider backend={HTML5Backend}>
+      <Auth0Provider
+        domain={AUTH_ZERO_DOMAIN}
+        clientId={AUTH_ZERO_CLIENT_ID}
+        redirectUri={window.location.origin}
+        onRedirectCallback={onRedirectCallback}
+      >
+        <Provider value={gqlClient}>
+          <App />
+        </Provider>
+      </Auth0Provider>
+    </DndProvider>
   </React.StrictMode>
 );
 

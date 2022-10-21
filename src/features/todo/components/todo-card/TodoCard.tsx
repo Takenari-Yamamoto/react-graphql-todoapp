@@ -1,4 +1,5 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
+import { useDrag } from 'react-dnd';
 import { TodoEntity } from '../../types/type';
 import StatusSelect from '../StatusSelect';
 
@@ -10,11 +11,47 @@ type Props = {
   key: number;
 };
 
+type DropResult = {
+  colNumber: number;
+};
+
+export const DnDItems = {
+  Todo: 'Todo',
+} as const;
+
+export type DnDItems = typeof DnDItems[keyof typeof DnDItems];
+
 const TodoCard = (props: Props) => {
+  const [num, setDroppedColumnNumber] = useState(0);
   const { handleSelect, removeTodo, todo, editTodo } = props;
 
+  const [collected, dragRef] = useDrag(
+    () => ({
+      type: DnDItems.Todo,
+      item: { text: 'text' },
+      end: (_, monitor) => {
+        console.log(2, monitor);
+        const dropResult = monitor.getDropResult() as DropResult;
+        console.log('result', dropResult);
+        if (dropResult) {
+          // ドロップされたカラム番号をstateにセット
+          setDroppedColumnNumber(dropResult.colNumber);
+        }
+      },
+      collect: (monitor) => {
+        console.log(monitor);
+        return { dragging: monitor.isDragging() };
+      },
+    }),
+    []
+  );
+
   return (
-    <div className="todo-item" onClick={() => handleSelect(todo.id)}>
+    <div
+      ref={dragRef}
+      className="todo-item"
+      onClick={() => handleSelect(todo.id)}
+    >
       <img
         onClick={(e) => {
           e.stopPropagation();
